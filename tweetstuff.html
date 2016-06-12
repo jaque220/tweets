@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<nav id="navBar">
+</nav>
+    <script src="js/jquery-2.2.3.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="tweetycss.css">
+	
+    
+</head>
+<body>
+
+<div id ="timeline">
+<p>Cleveland Cavaliers</p> 
+</div>
+
+<script>
+
+		$.get('http://clevelandcodes-sample-api.herokuapp.com/tweets.json', function(page) {
+               var newDiv = $('<ul />').addClass('pagination');
+               newDiv.append('<li id="prev"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>');
+			
+               for(var i = 1; i <= page.total_pages; i++) {
+                   newDiv.append('<li id= "page' + i + '">' + '<a href="#">' + i  + '</a></li>');
+               }
+                   newDiv.append('<li id="next"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>')
+                   newDiv.append('<div id="tweet"></div>')
+                   $('#navBar').append(newDiv);
+		
+var currentPage = 1;		
+function populateTweets(page){
+	
+
+	$.get("http://clevelandcodes-sample-api.herokuapp.com/tweets.json?page=" + page, function(response){
+	   currentPage = page;
+	   console.log('Current Page ' + currentPage);
+	   $.each(response.tweets, function(i, response){
+	   //$("body").append("<div class="container">")
+	   //this includes everything within div class='id' PROBLEM: Is there easier way without + ? 
+	   $("#timeline").append(
+	   "<div id='contain'><div id='div' class='twitter-feed'><span id='top'><b> ID: </b></span><span>" + response.id + "</span><div>"
+	   + "<span><b> Content: </b></span> <span>" + response.content + "</span></div>"
+	   + "<div> <span><b> User_Id: </b></span> <span>" + response.user_id + "</span></div>"
+	   + "<div> <span><b> Url: </b></span> <span>" + response.url + "</span> </div>"
+	   + "<div class='retweets'><span class='glyphicon glyphicon-retweet'> </span>" + response.retweet_count + "</div>" 
+	   + "<div class='favorite'><span class='glyphicon glyphicon-heart-empty'> </span>" + response.favorites_count 
+	   + "</div></div></br>");
+		//+ "<div> <span><b> Favorites Count: </b></span> <span>" + response.favorites_count + "</span> </div>")
+	   });
+	   });
+	   
+	};
+	
+	populateTweets(1);
+	
+	$('#page1').on('click', function(rePopPage) {
+	$('#timeline').empty(); 
+	populateTweets(1);
+	});
+	$('#page2').on('click', function(rePopPage) {
+	$('#timeline').empty(); 
+	populateTweets(2);
+	});
+	$('#page3').on('click', function(rePopPage) {
+	$('#timeline').empty(); 
+	populateTweets(3);
+	});
+	$('#page4').on('click', function(rePopPage) {
+	$('#timeline').empty(); 
+	populateTweets(4);
+	});
+	
+	$('#prev').on('click', function(goBack) {
+        
+        if (currentPage == 4) {
+                   
+            $('#timeline').empty();
+            
+            populateTweets(3)
+            currentPage = 3;
+        }
+		else if (currentPage == 3) {
+                   
+            $('#timeline').empty();
+            
+            populateTweets(2)
+            CurrentPage = 2;
+        }
+		else if (currentPage == 2) {
+                   
+            $('#timeline').empty();
+            
+            populateTweets(1)
+            currentPage = 1;
+        }
+		
+		});
+		
+	$('#next').on('click', function(goForward) {
+        
+        if (currentPage == 1) {
+                   
+            $('#timeline').empty();
+            
+            populateTweets(2)
+            currentPage = 2;
+        }
+		else if (currentPage == 2) {
+                   
+            $('timeline').empty();
+            
+            populateTweets(3)
+            currentPage = 3;
+        }
+		else if (currentPage == 3) {
+                   
+            $('#timeline').empty();
+            
+            populateTweets(4)
+            currentPage = 4;
+        }
+		});
+		});
+		
+</script> 
+</body>
+
+</html>

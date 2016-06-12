@@ -1,0 +1,38 @@
+body{
+    background: url(http://img08.deviantart.net/5d78/i/2014/223/9/e/kyrie_irving__the_knight__wallpaper_by_kevin_tmac-d7uoi62.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	background-repeat: no-repeat;
+}
+
+p{
+	font-size: 23px;
+	font-family: Comic Sans MS;
+	font-weight: bold;
+	}
+	
+#tweets-container {
+	color: gold;
+	font-weight: bold;
+	font-size: 13px;
+	background-color: transparent;
+	margin: 0 auto;
+    width: 400px;
+    text-align: center;
+}
+#timeline {
+	color: gold;
+	font-weight: bold;
+	font-size: 13px;
+	background-color: transparent;
+	margin: 0 auto;
+    width: 400px;
+    text-align: center;
+}
+
+#navBar {
+	float: left;
+	position: top;
+}
